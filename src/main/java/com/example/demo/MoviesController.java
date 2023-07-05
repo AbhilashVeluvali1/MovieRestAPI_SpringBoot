@@ -85,5 +85,18 @@ public class MoviesController {
 	     return ResponseEntity.ok(movieList.toString());
 	}
 	
+	//route return movies  based on ratings
+	@GetMapping("/getMoviesByRatings/{rating}")
+	public ResponseEntity<?> getMOviesByRatings(@PathVariable int rating) {
+		ArrayList<String> movieList = movieService.getMOviesByRatings(rating);
+	     return ResponseEntity.ok(movieList.toString());
+	}
+	
+	//route to return movie details by movieName
+	@GetMapping(value = "/getMovieDetails/{name}", produces = "application/json") 
+	public ResponseEntity<?> getMovieDetails(@PathVariable String name) {
+		String movieList = movieService.getMovieDetails(name);
+	     return ResponseEntity.ok(movieList);
+	}
 
 }

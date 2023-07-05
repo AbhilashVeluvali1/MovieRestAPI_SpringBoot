@@ -30,8 +30,16 @@ public class MoviePojo {
 	private String overView;
 	@Column(name = "crew")
 	private String crew;
+	@Column(name = "score")
+	private int rating;
 	
 	
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 	public String getCrew() {
 		return crew;
 	}
@@ -84,7 +92,7 @@ public class MoviePojo {
 	public String toString() {
 		return "MoviePojo [movieId=" + movieId + ", movieName=" + movieName + ", genere=" + genere + ", releaseDate="
 				+ releaseDate + ", country=" + country + ", originalLanguage=" + originalLanguage + ", overView="
-				+ overView + ", crew=" + crew + "]";
+				+ overView + ", crew=" + crew + ", rating=" + rating + "]";
 	}
 	
 	

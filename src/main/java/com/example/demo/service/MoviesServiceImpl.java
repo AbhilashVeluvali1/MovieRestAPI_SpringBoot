@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.MoviesDao;
 import com.example.demo.pojo.MoviePojo;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import jakarta.transaction.Transactional;
@@ -100,5 +101,24 @@ public class MoviesServiceImpl implements MovieService {
 		json.addProperty("MovieDetails:", list.toString());
 		return json;
 		
+	}
+
+	@Override
+	public ArrayList<String> getMOviesByRatings(int rating) {
+		// TODO Auto-generated method stub
+		ArrayList<String> list = new ArrayList<String>();
+		//movieRepo.findByRating(rating);	
+		movieRepo.findByRating(rating).forEach(x -> {
+			list.add(x.getMovieName());
+		});
+		System.out.println(list);
+		return list;
+		}
+
+	@Override
+	public String getMovieDetails(String name) {
+		// TODO Auto-generated method stub
+		String movieDetails = new Gson().toJson(movieRepo.findByMovieName(name));
+		return movieDetails;
 	}
 }

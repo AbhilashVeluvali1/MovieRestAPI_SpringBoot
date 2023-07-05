@@ -21,6 +21,8 @@ public interface MoviesDao extends JpaRepository<MoviePojo, Integer> {
 	 ArrayList<MoviePojo> findByOriginalLanguage(String language);
 
 	ArrayList<MoviePojo> findByCountry(String country);
+
+	ArrayList<MoviePojo> findByRating(double calcScore);
 	
 	
 	

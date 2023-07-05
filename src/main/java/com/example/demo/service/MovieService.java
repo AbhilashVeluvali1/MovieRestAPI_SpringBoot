@@ -25,5 +25,11 @@ public interface MovieService {
 
 
 	public JsonObject getMoviesByCountry(String country);
+
+
+	public ArrayList<String> getMOviesByRatings(int rating);
+
+
+	public String getMovieDetails(String name);
 	
 }
