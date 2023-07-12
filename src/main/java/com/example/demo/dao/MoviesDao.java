@@ -14,18 +14,12 @@ public interface MoviesDao extends JpaRepository<MoviePojo, Integer> {
 
 	ArrayList<MoviePojo> findByReleaseDate(LocalDate releaseDate);
 
-	ArrayList<MoviePojo> findByGenere(String gnere);
+	ArrayList<MoviePojo> findByGenereLike(String gnere);
 
 	MoviePojo findByMovieName(String movieName);
 
-	 ArrayList<MoviePojo> findByOriginalLanguage(String language);
 
 	ArrayList<MoviePojo> findByCountry(String country);
 
 	ArrayList<MoviePojo> findByRating(double calcScore);
-	
-	
-	
-		
-
 }

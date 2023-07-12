@@ -25,13 +25,10 @@ public class MoviesController {
 	MovieService movieService;
 	
 	//route to return the list of all movie names
-	@GetMapping("/getAllMovies")
+	@GetMapping(value = "/getAllMovies" , produces= "application/json")
 	public ResponseEntity<?> getAllMovies(){
-		java.lang.reflect.Type listType = new TypeToken<List<String>>() {}.getType();
-        ArrayList<String> moviesList = movieService.getAllMovies();
-        Gson gson = new Gson();
-        String json = gson.toJson(moviesList , listType );
-        return ResponseEntity.ok(json);
+        JsonObject moviesList = movieService.getAllMovies();
+        return ResponseEntity.ok(moviesList.toString());
 	}
 	
 	//route to return movie name based on the releaseDate
@@ -48,7 +45,6 @@ public class MoviesController {
 	@GetMapping(value = "/getMoviesByGnere/{gnere}", produces= "application/json") 
 	public ResponseEntity<?> getMoviesByGnere(@PathVariable String gnere) {
 		 ArrayList<String> moviesList = movieService.getMoviesByGenre(gnere);
-		 
 	     return ResponseEntity.ok(moviesList);
 	}
 	//route to return movie overview based on the movieName;
@@ -68,15 +64,6 @@ public class MoviesController {
 		 
 	     return ResponseEntity.ok(movieList.toString());
 	}
-	//route to return movies based on the language
-	@GetMapping("/getMoviesByLanguage/{language}") 
-	public ResponseEntity<?> getMoviesByLanguage(@PathVariable String language) {
-		 ArrayList<String> moviesList = movieService.getMoviesByLanguage(language);
-		 java.lang.reflect.Type listType = new TypeToken<List<String>>() {}.getType();
-		 Gson gson = new Gson();
-	     String json = gson.toJson(moviesList , listType );
-	     return ResponseEntity.ok(json);
-	}
 	
 	//route to return movie based on the country of origin 
 	@GetMapping("/getMoviesByCountry/{country}") 
@@ -88,7 +75,7 @@ public class MoviesController {
 	//route return movies  based on ratings
 	@GetMapping("/getMoviesByRatings/{rating}")
 	public ResponseEntity<?> getMOviesByRatings(@PathVariable int rating) {
-		ArrayList<String> movieList = movieService.getMOviesByRatings(rating);
+		JsonObject movieList = movieService.getMOviesByRatings(rating);
 	     return ResponseEntity.ok(movieList.toString());
 	}
 	

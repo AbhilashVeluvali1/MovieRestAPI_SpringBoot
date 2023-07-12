@@ -30,14 +30,15 @@ public class MoviesServiceImpl implements MovieService {
 	MoviesDao movieRepo;   //Dependency injection of DAO layer
 
 	@Override
-	public ArrayList<String> getAllMovies() {
+	public JsonObject getAllMovies() {
 		// TODO Auto-generated method stub\
 		ArrayList<String> movieList = new ArrayList<String>();
 		movieRepo.findAll().forEach(x -> {
 			movieList.add(x.getMovieName());
 		});
-		System.out.println(movieList);
-		return movieList;
+		JsonObject json = new JsonObject();
+		json.addProperty("Name", movieList.toString());
+		return json;
 	}
 	
 	@Override
@@ -54,11 +55,11 @@ public class MoviesServiceImpl implements MovieService {
 
 	@Override
 	public ArrayList<String> getMoviesByGenre(String gnere) {
+		System.out.print(gnere);
 		ArrayList<String> movieList = new ArrayList<String>();
-		movieRepo.findByGenere(gnere).forEach(x -> {
+		movieRepo.findByGenereLike("%"+gnere+"%").forEach(x -> {
 			movieList.add(x.getMovieName());
 		});
-		System.out.println(movieList);
 		return movieList;
 		
 	}
@@ -81,38 +82,28 @@ public class MoviesServiceImpl implements MovieService {
 		return json;
 	}
 
-	@Override
-	public ArrayList<String> getMoviesByLanguage(String language) {
-		ArrayList<String> movieList = new ArrayList<String>();
-		movieRepo.findByOriginalLanguage(language).forEach(x -> {
-			movieList.add(x.getMovieName());
-		});
-		System.out.println(movieList);
-		return movieList;
-	}
 
 	@Override
 	public JsonObject getMoviesByCountry(String country) {
-		ArrayList <MoviePojo> list = movieRepo.findByCountry(country);
 		JsonObject json = new JsonObject();
-		
-		
 		json.addProperty("country", country);
-		json.addProperty("MovieDetails:", list.toString());
+		ArrayList<String> movieList = new ArrayList<String>();
+		movieRepo.findByCountry(country).forEach(x -> {
+			movieList.add(x.getMovieName());
+		});
+		json.addProperty("movieName", movieList.toString());
 		return json;
 		
 	}
 
 	@Override
-	public ArrayList<String> getMOviesByRatings(int rating) {
+	public JsonObject getMOviesByRatings(int rating) {
 		// TODO Auto-generated method stub
-		ArrayList<String> list = new ArrayList<String>();
-		//movieRepo.findByRating(rating);	
-		movieRepo.findByRating(rating).forEach(x -> {
-			list.add(x.getMovieName());
-		});
-		System.out.println(list);
-		return list;
+		ArrayList<MoviePojo> list = movieRepo.findByRating(rating);
+		JsonObject json = new JsonObject();
+		json.addProperty("movieName", list.get(0).getMovieName());
+		json.addProperty("overview", list.get(0).getRating());
+		return json;
 		}
 
 	@Override
